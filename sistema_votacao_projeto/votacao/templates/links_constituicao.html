@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Legislação</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    }
+
+        .header {
+                display: flex;
+                justify-content: space-between;
+                background-color: #ffffff;
+                color: #fff;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 3px solid #126d9e; /* Adiciona uma borda inferior azul */
+            }
+
+        .down-header {
+            background-color: #126D9E;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 70px; /* Altura do logo */
+        }
+
+        .menu-container {
+            position: relative;
+            margin-right: -290px;
+        }
+        
+        .menu-toggle {
+            cursor: pointer;
+        }
+        
+        .menu {
+            display: none; /* Inicia escondido */
+            position: absolute;
+            top: 100%; /* Posiciona abaixo do botão */
+            left: 0;
+            background-color: #ffffff; /* Fundo branco */
+            border: 1px solid #003366; /* Borda azul */
+            z-index: 1; /* Certifique-se de que aparece acima do conteúdo abaixo */
+        }
+        
+        .menu a {
+            color: #003366; /* Texto azul */
+            text-decoration: none;
+            display: block;
+            padding: 10px; /* Espaçamento interno para tornar os links mais clicáveis */
+        }
+        
+        .menu a:hover {
+            background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+        }
+
+        .back-button i {
+            color: #ffffff; /* Cor branca */
+            font-size: 24px; /* Tamanho maior */
+            font-weight: bold; /* Torna o ícone mais grosso */
+            margin-left: 10px; /* Ajuste de posicionamento (exemplo) */
+            margin-top: 5px; /* Ajuste de posicionamento (exemplo) */
+        }
+
+        .content {
+            display: flex; /* Alinha os ícones horizontalmente */
+            justify-content: space-around; /* Espaçamento horizontal entre os ícones */
+            align-items: center; /* Centraliza verticalmente os ícones */
+            flex-wrap: wrap; /* Permite que os ícones se enrolem em tamanhos menores de tela */
+            min-height: calc(100vh - 40px); /* Define a altura mínima para ocupar toda a altura da tela, menos o cabeçalho */
+            height: 250px; /* Altura específica */
+
+        }
+
+        .menu-item {
+            border-bottom: 1px solid #126d9e; /* Linha em #126d9e entre os tópicos principais */
+        }
+        
+        
+        .menu-container {
+            position: relative; /* Posiciona o contêiner */
+        }
+
+        .custom-select {
+            position: absolute; /* Posicionamento absoluto para aparecer abaixo do botão */
+            top: 100%; /* Posiciona logo abaixo do botão */
+            left: 0;
+            background-color: #003366; /* Cor de fundo */
+            width: 200px; /* Largura do menu */
+            border-radius: 5px; /* Borda arredondada */
+            z-index: 1; /* Posicionamento na frente de outros elementos */
+            
+        }
+        
+        .custom-select .option {
+            padding: 5px 10px; /* Espaçamento interno */
+            color: white; /* Cor da fonte */
+            cursor: pointer; /* Estilo do cursor */
+        }
+        
+        .custom-select .option:hover {
+            background-color: #126d9e; /* Cor de fundo ao passar o mouse */
+        }
+        
+        .custom-select .option a {
+            color: white; /* Cor dos links */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+        
+        .custom-select .option i {
+            margin-left: 10px; /* Espaçamento à esquerda dos ícones */
+        }
+        
+        .selected-option {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .boas-vindas {
+            color: #126d9e; /* Define a cor do texto */
+            font-family: "Georgia", serif; /* Escolhe uma fonte mais sofisticada */
+            font-size: 20px; /* Ajusta o tamanho da fonte */
+            text-align: center; /* Centraliza o texto na div */
+        }
+        
+
+        
+        .option {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+        .navigate {
+            cursor: pointer;
+            float: right;
+            font-size: 20px; /* Ajuste o tamanho conforme necessário */
+            background-color: #ffffff; /* Fundo branco */
+            border: none; /* Remove a borda */
+            color: #126d9e; /* Cor do ícone */
+            transition: background-color 0.3s, color 0.3s; /* Transição suave de cor */
+            border-radius: 8px; /* Arredonda as bordas */
+            margin-right: -90px;
+            
+        }
+        
+        .navigate:hover {
+            background-color: #dddddd; /* Cor de fundo ao passar o mouse */
+            color: #126d9e; /* Cor do ícone ao passar o mouse */
+        }
+
+        .log-off-out {
+            cursor: pointer;
+            font-size: 18px; /* Ajuste o tamanho conforme necessário */
+            float: right; /* Alinha à direita */
+            color: #6c757d; /* Cor do texto secundário - pode ser ajustado */
+            margin-left: 0px; /* Espaçamento à esquerda do botão de saída */
+            margin-right: 35px;
+            background: none; /* Sem cor de fundo */
+            border: none; /* Sem borda */
+            
+            
+        }
+        
+        .log-off-out:hover {
+            color: #5a6268; /* Cor do texto ao passar o mouse - pode ser ajustado */
+        }
+        
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            position: relative; 
+            flex-grow: 0;
+        }
+
+        .cards-container {
+            width: 50%;
+            padding: 15px;
+            
+        }
+
+        .right {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            right: 22%; 
+            top: 35%;
+    }
+
+/* Consulta de mídia para telas menores, como dispositivos móveis */
+@media screen and (max-width: 415px) {
+    .right_1 {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            right: 22%; 
+            top: 103%;/* Ocupa a altura total da janela de visualização */
+    }
+}
+
+
+        #documentoDisplay {
+            position: relative;
+            display: none; /* Escondido inicialmente */
+            overflow: auto;
+        }
+
+        #documentoDisplay iframe {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .card {
+            background: #e9e8e3;
+            width: 30%; /* Reduz a largura para 40% do contêiner pai */
+            padding: 6px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            margin-top: 20px; /* Adiciona uma margem no topo para separar dos itens do cabeçalho */
+    }
+    
+
+        .content-left {
+            display: flex;
+            align-items: center;
+        }
+
+        img {
+            margin-right: 10px;
+        }
+        .col-lg-4,
+                .col-lg-8,
+                .col-sm-5,
+                .col-sm-7 {
+                    position: relative;
+                    width: 100%;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                    flex: 0 0 50%;
+                    max-width: 50%;
+            }
+
+        .titulo-centralizado {
+            text-align: center; /* Centraliza o texto */
+            margin: 5px auto;  /* Define a margem superior e inferior para 10px e esquerda/direita para 'auto' para centralizar */
+            width: 80%;         /* Define a largura para 80% do contêiner pai para reduzir a margem nas laterais */
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="{% static 'images/LogoSisLegis.png' %}" alt="Logo" class="logo">
+    
+            
+            <div class="boas-vindas">
+                {{ mensagem_boas_vindas }}
+            </div>
+    
+    
+    
+            <div class="menu-container">
+                <button class="navigate" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-caret-down arrow-icon"></i>
+                </button>
+    
+        
+                <div class="custom-select" style="display:none;" >
+                    <div class="options">
+                        <div class="option">
+                            <a href="{% url 'configuracao' %}">Configuração</a>
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="option">
+                            <a href="#parlamentar" id="home">Parlamentar</a>
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="option">
+                            <a href="#operador">Operador</a>
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="option">
+                            <a href="#alterar-senha">Alterar Senha</a>
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="option">
+                            <a href="#sair">Sair</a>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             
+    
+             <a href="{% url 'logout' %}">
+                <button class="log-off-out text-secondary">
+                    <span class="has-mobile">Sair</span>
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </a>
+    
+    
+        </div>
+
+    <div class="down-header">
+        <a href="{% url 'home' %}" class="back-button"><i class="fas fa-arrow-left" alt="Voltar"></i></a>
+        <h3 class="titulo-centralizado">Constituição e Regimentos</h3>
+        <div class="menu-item">
+        </div>
+    </div>
+    
+    <div class="row padding-sides container pr-3 mt-4">
+        <div class="col-lg-4 col-sm-5">
+            <div id="accordionLegislacao">
+                <div class="card cursor-pointer" onclick="selecionar('doc_constituicao_federal')">
+                    <div class="content-left">
+                        <img src="{% static 'images/ico_ConstituicaoF.png'%}"alt="">
+                            <span>Federal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <!--anchor-->
+    <div class="row padding-sides container pr-3 mt-4">
+        <div class="col-lg-4 col-sm-5">
+            <div id="accordionLegislacao">
+                <div class="card cursor-pointer" onclick="selecionar('doc_constituicao_estadual')">
+                    <div class="content-left">
+                        <img src="{% static 'images/ico_ConstituicaoE.png'%}" alt="">
+                            <span>Estadual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <!--anchor-->
+    <div class="row padding-sides container pr-3 mt-4">
+        <div class="col-lg-4 col-sm-5">
+            <div id="accordionLegislacao">
+                <div class="card cursor-pointer" onclick="selecionar('doc_constituicao_municipal')">
+                    <div class="content-left">
+                        <img src="{% static 'images/ico_Lei.png'%}" alt="">
+                            <span>Lei Orgânica</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <!--anchor-->
+    <div class="row padding-sides container pr-3 mt-4">
+        <div class="col-lg-4 col-sm-5">
+            <div id="accordionLegislacao">
+                <div class="card cursor-pointer" onclick="selecionar('doc_regimento_interno')">
+                    <div class="content-left">
+                        <img src="{% static 'images/ico_Regimento.png'%}" alt="">
+                            <span>Regimento Interno</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="right right_1">
+        <div id="documentoDisplay"></div>
+    </div>
+</div>
+    <script>
+       function selecionar(doc) {
+            if (doc === 'doc_constituicao_federal') {
+                document.getElementById('documentoDisplay').innerHTML = '<iframe src="https://www.planalto.gov.br/ccivil_03/Constituicao/Constituicao.htm"></iframe>';
+                document.getElementById('documentoDisplay').style.display = 'block';
+            }
+
+            if (doc === 'doc_constituicao_estadual') {
+                    document.getElementById('documentoDisplay').innerHTML = '<iframe src="https://www.ipsm.mg.gov.br/arquivos/legislacoes/legislacao/constituicoes/constituicao_estado.pdf" width="100%" height="600px"></iframe>';
+                    document.getElementById('documentoDisplay').style.display = 'block';
+                }
+
+            if (doc === 'doc_constituicao_municipal') {
+                document.getElementById('documentoDisplay').innerHTML = '<iframe src="https://leismunicipais.com.br/lei-organica-montes-claros-mg" width="100%" height="600px"></iframe>';
+                document.getElementById('documentoDisplay').style.display = 'block';
+            }
+
+            if (doc === 'doc_regimento_interno') {
+                    document.getElementById('documentoDisplay').innerHTML = '<iframe src="https://docs.google.com/document/d/1zzn6AkmFLSXuL6Uxsi9ZMA97oZq9BgeMffNNV4p4JRU/edit" width="100%" height="600px"></iframe>';
+                    document.getElementById('documentoDisplay').style.display = 'block';
+                }
+        }
+
+       
+        function toggleMenu() {
+            $(".custom-select").toggle(); // Simplesmente alternar a exibição do menu
+        }
+        
+        $(document).ready(function() {
+            $(".option").click(function() {
+                var selected = $(this).html();
+                $(this).closest(".custom-select").find(".selected-option").html(selected);
+                $(this).closest(".options").hide();
+            });
+        });
+ 
+        document.getElementById('home').addEventListener('click', function() {
+        window.location.href = "{% url 'home' %}";});        
+            
+    </script>
+</body>
+
+</html>

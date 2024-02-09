@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'images/main.css' %}">
+    <script src="{% static 'images/script.js' %}"></script>
+
+</head>
+<style>
+    .action-link {
+        padding: 6px 9px;
+        border: 1px solid #d4d4d4;   /* Borda fininha */
+        border-radius: 5px;
+        background-color: #f5f5f5;  /* Cinza bem claro */
+        color: #666666;             /* Um tom de cinza mais escuro para o texto */
+        font-weight: 400;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        transition: background-color 0.3s ease, border-color 0.3s ease;  /* Adicionado transição para a cor da borda */
+    }
+    
+    .action-link:hover {
+        background-color: #e0e0e0;  /* Um tom de cinza um pouco mais escuro para o hover */
+        border-color: #b0b0b0;     /* Borda um pouco mais escura no hover */
+    }
+    
+    .action-link i {
+        margin-right: 5px;
+    }
+    
+
+</style>
+<body>
+    <div id="content-placeholder"></div>
+
+    <div class="top-header">
+        <img src="{% static 'images/Group 1.svg' %}" alt="Logo" class="logo">
+
+        <div class="menu-container">
+            <button class="navigate" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-caret-down arrow-icon"></i>
+            </button>
+
+    
+            <div class="custom-select" style="display:none;" >
+                <div class="options">
+                    <div class="option">
+                        <a href="{% url 'configuracao' %}">Configuração</a>
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#parlamentar">Parlamentar</a>
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#operador">Operador</a>
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#alterar-senha">Alterar Senha</a>
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#sair">Sair</a>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <a href="{% url 'logout' %}">
+            <button class="log-off-out text-secondary">
+                <span class="has-mobile">Sair</span>
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </a>
+    </div>
+
+    <div class="header">
+        <a href="{% url 'home' %}" class="back-button"><i class="fas fa-arrow-left" alt="Voltar"></i></a>
+        <div class="menu-item">
+        </div>
+    </div>
+    <div class="container">
+        <div id="side-menu" class="side-menu">
+
+                <div class="menu-header" onclick="toggleSubmenu('legislativo')">
+                        <p>Legislativo</p>
+                        <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="legislativo" class="submenu">
+                    <div class="menu-item">
+                        <a  href="{% url 'manage_parlamentar' %}"   id="parlamentar-link">Parlamentar</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="{% url 'manage_partido_politico' %}" id="partido-politico-link">Partido Político</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" id="mesa-diretora-link">Mesa Diretora</a>
+                    </div>
+                </div>
+                
+
+                <div class="menu-header" onclick="toggleSubmenu('geral')">
+                    <p>Geral</p>
+                    <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="geral" class="submenu">
+                    <div class="menu-item">
+                        <a href="#" id="parametros-de-votacao-link">Parametros de Votação</a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="#" id="tipo-de-acao-link">Tipo de Ação</a>
+                    </div>
+                </div>
+
+                <div class="menu-header" onclick="toggleSubmenu('atividades')">
+                    <p>Atividades</p>
+                    <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="atividades" class="submenu">
+                    <div class="menu-item">
+                        <a href="#" id="sessao-plenario-link">Sessões Plenário</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a href="#" id="votacao-plenario-link">Votação Plenário</a>
+                    </div>
+                </div>
+
+                <div class="menu-header" onclick="toggleSubmenu('comunicacao')">
+                    <p>Comunicação</p>
+                    <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="comunicacao" class="submenu">
+                    <div class="menu-item">
+                    <a href="#cronometro">Cronômetro</a>
+                    </div>
+        
+                    <div class="menu-item">
+                        <a href="#" id="painel-link">Painel</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a href="#" id="cenario-painel-link">Cenários Painel</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a href="#" id="buzina-link">Buzina</a>
+                    </div>
+                </div>
+
+                <div class="menu-header" onclick="toggleSubmenu('relatorios')">
+                    <p>Relatorios</p>
+                    <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="relatorios" class="submenu">
+                    <div class="menu-item">
+                        <a href="#" id="relatorio-de-presenca-link">Relatorio de Presença</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a href="#" id="relatorio-de-votacao-link">Relatorio de Votação</a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a href="#" id="relatorio-geral-link">Relatório Geral</a>
+                    </div>
+                </div>
+
+                <div class="menu-header" onclick="toggleSubmenu('usuario')">
+                        <p>Usuário</p>
+                        <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                    </div>
+                    <div id="usuario" class="submenu">
+                        <div class="menu-item">
+                            <a href="#" id="usuario-link">Usuário</a>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="#" id="perfil-link">Perfil</a>
+                        </div>
+                </div>
+    
+
+            <div class="menu-item">    
+                <div class="menu-header" onclick="toggleSubmenu('configuracao')">
+                    <p>Configuração</p>
+                    <span class="icon-expand icon-plus" alt="Expandir">+</span>
+                </div>
+                <div id="configuracao" class="submenu">
+                    <div class="menu-item">
+                        <a href="#" id="cores-do-painel-link">Cores do Painel</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <div class="content">
+
+            <div id="parlamentar-content" data-url="/home/configuracao/parlamentar/" class="subitem-content"  >
+                        <div class="search-bar">
+                            <input type="text" placeholder="Pesquisar por nome" class="search-input" id="search-input-parlamentar">
+                            <button class="button-common search-button" id="pesquisa_parlamentar"><i class="fas fa-search"></i></button>
+                            <button class="button-common new-button" onclick="showForm()" id="novo_parlamentar"> <i class="fas fa-user-plus"></i> Novo</button>
+                            </div>
+                            <div class="row">
+            
+                                <div class="col-md-12">
+                                <!-- SE DER CERTO ELE DEVE CAIR NO IF. DO JEITO QUE ESTÁ SÓ ESTA CAINDO NO ELSE -->
+                                    <form id="cadastro-form" method="post" action="{% url 'manage_parlamentar' %}" style="display: none;" enctype="multipart/form-data">
+                                        {% csrf_token %} <!-- proteger contra ataques de falsificação de solicitação entre sites -->
+                                        <input type="hidden" name="vereador_id" value="{{ vereador.id }}">
+                                        
+
+                                        <h1>Cadastro de parlamentares</h1>
+                            
+                                        <fieldset class="field-group">
+                                            <legend><span class="number">1</span> Informações</legend>
+                                            <div class="info-section">
+                            
+                                                <!-- Detalhes do formulário -->
+                                                <div class="details-section">
+                                                    <label for="name">Nome:</label>
+                                                    <input type="text" id="name" name="nome_completo">
+                            
+                                                    <!-- Esse campo deve ter o name que corresponda ao campo na model -->
+                                                    <label for="nome_vereador">Nome parlamentar:</label>
+                                                    <input type="text" id="parlamentar" name="nome_vereador" >
+                            
+                                                    <label for="birthdate">Data de nascimento:</label>
+                                                    <input type="date" id="birthdate" name="data_nascimento">
+                            
+                                                    <label for="gender">Sexo:</label>
+                                                    <select id="gender" name="sexo">
+                                                        <option value="M">Masculino</option>
+                                                        <option value="F">Feminino</option>
+                                                    </select>
+                                                </div>
+                            
+                                                <!-- Caixa de foto -->
+                                                    <div class="photo-section"  onclick="triggerFileClick()">
+                                                        <i class="fa fa-camera" id="cameraIcon" style="font-size: 24px;"></i>
+                                                        <input type="file" id="profileImage" name="profile_image" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;" onchange="displayImage(this)">
+                                                        <img id="displayedImg" src="{{ vereador.foto.url }}" style="max-width: 100px; position: absolute; top: 0; left: 0;" alt="Foto do Vereador">
+                                                    </div>
+                            
+                                            </div>
+
+                                            <!-- Modal de salvar -->
+                                            <div id="successModalParlamentar" class="modal">
+                                                <div class="modal-content">
+                                                <span class="close-button">&times;</span>
+                                                <h2>Sucesso!</h2>
+                                                <p>Novo parlamentar cadastrado.</p>
+                                                </div>
+                                            </div>
+                                            
+                            
+                                            <!-- Botões -->
+                                            <div class="form-buttons">
+                                                <button type="submit" >
+                                                    <i class="fas fa-save"></i> Salvar
+                                                </button>
+                                                <button type="button" onclick="decideVoltarFunction()" id="voltar_parlamentar">
+                                                    <i class="fas fa-arrow-left"></i> Voltar
+                                                </button>
+                                                
+                                            </div>
+                            
+                                        </fieldset>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="table-container" id="parlamentar-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 60%;">Nome</th>
+                                                <th style="width: 40%;">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for vereador in vereadores %}
+                                            <tr>
+                                                <td>{{ vereador.nome_vereador }}</td>
+                                                <td>
+                                            {% if vereador.foto %}
+                                                <button class="action-link edit-link" 
+                                                onclick="editVereador('{{ vereador.id }}', '{{ vereador.nome_vereador }}', '{{ vereador.nome_completo }}', '{{ vereador.data_nascimento }}', '{{ vereador.sexo }}', '{{ vereador.foto.url }}')" 
+                                                data-vereador-nome="{{ vereador.nome_vereador }}" 
+                                                data-vereador-id="{{ vereador.id}}"
+                                                data-nome-completo="{{ vereador.nome_completo }}"
+                                                data-data-nascimento="{{ vereador.data_nascimento }}"
+                                                data-sexo="{{ vereador.sexo }}"
+                                                data-image="{{ vereador.foto.url }}">
+                                            {% else %}
+                                                <button class="action-link edit-link" 
+                                                onclick="editVereador('{{ vereador.id }}', '{{ vereador.nome_vereador }}', '{{ vereador.nome_completo }}', '{{ vereador.data_nascimento }}', '{{ vereador.sexo }}')" 
+                                                data-vereador-nome="{{ vereador.nome_vereador }}" 
+                                                data-vereador-id="{{ vereador.id}}"
+                                                data-nome-completo="{{ vereador.nome_completo }}"
+                                                data-data-nascimento="{{ vereador.data_nascimento }}"
+                                                data-sexo="{{ vereador.sexo }}">
+                                            {% endif %}
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button> |
+                                            <button class="action-link" onclick="deleteVereador('{{ vereador.id }}'')">
+                                                <i class="fas fa-trash-alt"></i> Excluir
+                                            </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </div>
+
+
+            <div id="partido-politico-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                        <input type="text" placeholder="Pesquisar por nome" id="search-input-partido">
+                        <button class="button-common search-button" id="pesquisa_partido"><i class="fas fa-search"></i></button>
+                        <button class="button-common new-button" id="botao-novo"><i class="fas fa-user-plus"></i> Novo</button>
+                        </div>
+                        <div class="row">
+                                <div class="card-partido-politico">
+                                    <form id="partido-form" method="post" style="display: none;">
+                                        <h1>Cadastro de partidos</h1>
+                                        <fieldset class="field-group">
+                                            <legend><span class="number">2</span>Informações do partido</legend>
+                                                <div class="info-section">
+                                                    <div class="details-section">
+                                                            <!-- Conteúdo do formulário -->
+                                                            <div class="label-input-container">
+                                                                <label for="sigla">Sigla do Partido:</label>
+                                                                <input type="text" id="sigla" name="sigla" placeholder="Digite a sigla do partido">
+                                                            </div>
+                                                            
+                                                            <div class="label-input-container">
+                                                                <label for="nome-partido">Nome do Partido:</label>
+                                                                <input type="text" id="nome-partido" name="nome-partido" placeholder="Digite o nome do partido">
+                                                            </div>
+                                                            
+                                                            <div class="label-input-container">
+                                                                <label for="data-criacao">Data de Criação:</label>
+                                                                <input type="date" id="data-criacao" name="data-criacao">
+                                                            </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal -->
+                                                <div id="successModalPartido" class="modal">
+                                                    <div class="modal-content">
+                                                    <span class="close-button">&times;</span>
+                                                    <h2>Sucesso!</h2>
+                                                    <p>Novo partido cadastrado.</p>
+                                                    </div>
+                                                </div>
+                                
+                                                <!-- Botões -->
+                                                <div class="form-buttons">
+                                                    <button type="submit" onclick="salvarPartidoFunction(event)">
+                                                        <i class="fas fa-save"></i> Salvar
+                                                    </button>
+                                                    <button type="button" onclick="voltarPartidosFunction()" id="voltar_partido">
+                                                        <i class="fas fa-arrow-left"></i> Voltar
+                                                    </button>
+                                                </div>
+                                
+                                        </fieldset>
+                                    </form>
+                            </div>
+                        </div>
+                        <div class="table-container" id="partido-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 2%;">Sigla</th>
+                                        <th style="width: 4%;">Nome</th>
+                                        <th style="width: 2%;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for partido in partidos %}
+                                    <tr>
+                                        <td>{{ partido.partido_politico }}</td>
+                                        <td>{{ partido.partido_nome }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Editar</a>
+                                            <a href="#" class="btn btn-delete"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+
+
+            <div id="mesa-diretora-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input-mesa">
+                    <button class="button-common search-button" id="pesquisa_mesa" class="pesquisa_mesa"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button" id="botao-novo-mesa"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <div class="row">
+                        <div class="card-mesa-diretora">
+                                    <form id="mesa-form" action="index.html" method="post" style="display: none;">
+                                        <h1>Cadastro de mesa diretora</h1>
+                                        <fieldset class="field-group">
+                                            <legend><span class="number">3</span>Informações do partido</legend>
+                                                <div class="info-section">
+                                                    <div class="details-section">
+                                                            <!-- Conteúdo do formulário -->
+                                                            <div class="label-input-container">
+                                                                <label for="nome_mesa">Nome:</label>
+                                                                <input type="text" id="nome_mesa" name="nome_mesa" placeholder="Nome">
+                                                            </div>
+                                                            
+                                                            <div class="label-input-container">
+                                                                <label for="data-criacao-mesa">Data de Criação:</label>
+                                                                <input type="date" id="data-criacao-mesa" name="data-criacao-mesa">
+                                                            </div>
+                                                            
+                                                            <div class="label-input-container">
+                                                                <label for="data-criacao">Data de termino:</label>
+                                                                <input type="date" id="data-termino" name="data-termino">
+                                                            </div>
+                                                    </div>
+                                                </div>
+
+                                        <!-- Modal -->
+                                        <div id="successModalMesa" class="modal">
+                                            <div class="modal-content">
+                                            <span class="close-button">&times;</span>
+                                            <h2>Sucesso!</h2>
+                                            <p>Novo mesa-diretora cadastrado.</p>
+                                            </div>
+                                        </div>
+                        
+                                        <!-- Botões -->
+                                        <div class="form-buttons">
+                                            <button type="submit" onclick="salvarMesaFunction(event)">
+                                                <i class="fas fa-save"></i> Salvar
+                                            </button>
+                                            <button type="button" onclick="voltarMesaFunction()" id="voltar_mesa">
+                                                <i class="fas fa-arrow-left"></i> Voltar
+                                            </button>
+                                        </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <div id="mesa-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 70%;">Nome</th>
+                                    <th style="width: 30%;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>MESA BIENIO 21/22</td>
+                                    <td>
+                                        <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                        <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>MESA BIENIO 23/24</td>
+                                    <td>
+                                        <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                        <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    
+          
+
+            <div id="parametros-de-votacao-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 70%;">Nome</th>
+                                <th style="width: 30%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2/3</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maioria Absoluta</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maioria Simples</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Veto</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="tipo-de-acao-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Nome</th>
+                                <th style="width: 30%;">Categoria</th>
+                                <th style="width: 15%;">Termina Apreciação</th>
+                                <th style="width: 30%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SUCESSO</td>
+                                <td>APROVADA</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SEM SUCESSO</td>
+                                <td>REPROVADO</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SEM SUCESSO</td>
+                                <td>REPROVADO</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SUCESSO</td>
+                                <td>APROVADO</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="sessao-plenario-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Nome</th>
+                                <th style="width: 30%;">Previsão</th>
+                                <th style="width: 15%;">Situação</th>
+                                <th style="width: 30%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sessão Ordinária</td>
+                                <td>20/05/2023</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sessão Ordinária</td>
+                                <td>15/05/2022</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10° Sessão Ordinária</td>
+                                <td>20/05/2013</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12° Sessão Ordinária</td>
+                                <td>20/05/2023</td>
+                                <td>Sim</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="votacao-plenario-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Nome</th>
+                                <th style="width: 15%;">Categoria</th>
+                                <th style="width: 15%;">Status</th>
+                                <th style="width: 15%;">Realização</th>
+                                <th style="width: 30%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Emenda nº 03/2023</td>
+                                <td>Turno 1</td>
+                                <td>Concluida</td>
+                                <td>13/06/2023 10:30</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emenda nº 03/2023</td>
+                                <td>Turno 1</td>
+                                <td>Concluida</td>
+                                <td>13/06/2023 10:30</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emenda nº 03/2023</td>
+                                <td>Turno 1</td>
+                                <td>Concluida</td>
+                                <td>13/06/2023 10:30</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emenda nº 03/2023</td>
+                                <td>Turno 1</td>
+                                <td>Concluida</td>
+                                <td>13/06/2023 10:30</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="painel-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">Endereço</th>
+                                <th style="width: 30%;">Ativo</th>
+                                <th style="width: 15%;">Tipo de Painel</th>
+                                <th style="width: 30%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>192.168.1.3</td>
+                                <td>Ativo</td>
+                                <td>Painel Votação</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>192.168.254.62</td>
+                                <td>Ativo</td>
+                                <td>Cronômetro</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>192.168.254.79</td>
+                                <td>Ativo</td>
+                                <td>Cronômetro</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="cenario-painel-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 60%;">Nome</th>
+                                <th style="width: 18%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Crônometro 1</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Crônometro 2</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Votações</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="buzina-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Nome</th>
+                                <th style="width: 10%;">Tempo</th>
+                                <th style="width: 20%;">Evento</th>
+                                <th style="width: 18%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>buzina</td>
+                                <td>0</td>
+                                <td>Tocar Buzina</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>fechar orador</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Termino_Orador_10_segundos</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="relatorio-de-presenca-content" class="subitem-content" style="display: none;">
+                    <div class="search-bar">
+                
+
+
+                            <!-- Primeiro switch com a legenda "Imprimir Ausentes (Apenas Plenário)" -->
+                            <div class="switch-wrapper">
+                                <p>Imprimir Ausentes</p>
+                                <input type="checkbox" id="fa-switch-ausentes" class="fa-switch-input">
+                                <label for="fa-switch-ausentes" class="fa-switch-label">
+                                    <i class="fas fa-toggle-off" id="off-icon-ausentes"></i>
+                                    <i class="fas fa-toggle-on" id="on-icon-ausentes"></i>
+                                </label>
+                            </div>
+
+                            <!-- Segundo switch com a legenda "Imprimir Recomposições (Apenas Plenário)" -->
+                            <div class="switch-wrapper">
+                                <p>Imprimir Recomposições</p>
+                                <input type="checkbox" id="fa-switch-recomposicoes" class="fa-switch-input">
+                                <label for="fa-switch-recomposicoes" class="fa-switch-label">
+                                    <i class="fas fa-toggle-off" id="off-icon-recomposicoes"></i>
+                                    <i class="fas fa-toggle-on" id="on-icon-recomposicoes"></i>
+                                </label>
+                            </div>
+
+                            <!-- Fim dos switchs on/off -->
+                        </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Nome</th>
+                                <th style="width: 7%;">Inicio</th>
+                                <th style="width: 6%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>1ª Sessão Ordinária</td>
+                                <td>17/08/2022 11:31:50.050</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>5ª Sessão Ordinária</td>
+                                <td>26/09/2022 09:17:54.054</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>10ª Sessão Ordinária</td>
+                                <td>30/11/2022 10:35:41.041</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="relatorio-de-votacao-content" class="subitem-content" style="display: none;">
+                    <div class="search-bar">
+
+                            <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                            <button class="button-common search-button"><i class="fas fa-search"></i></button>
+            
+                            <!-- Primeiro switch com a legenda "Exibir não votantes ?" -->
+                            <div class="switch-wrapper-votacao">
+                                <p style="margin-right: 10px;">Exibir não votantes ?</p>
+                                <input type="checkbox" id="fa-switch-nao-votantes" class="fa-switch-input">
+                                <label for="fa-switch-nao-votantes" class="fa-switch-label">
+                                    <i class="fas fa-toggle-off" id="off-icon-nao-votantes"></i>
+                                    <i class="fas fa-toggle-on" id="on-icon-nao-votantes"></i>
+                                </label>
+                            </div>
+                            <!-- Fim dos switchs on/off -->
+
+                        </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Nome</th>
+                                <th style="width: 7%;">Inicio</th>
+                                <th style="width: 6%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>1ª Sessão Ordinária</td>
+                                <td>17/08/2022 11:31:50.050</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>5ª Sessão Ordinária</td>
+                                <td>26/09/2022 09:17:54.054</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                            <!-- Exemplo de linhas... -->
+                            <tr>
+                                <td>10ª Sessão Ordinária</td>
+                                <td>30/11/2022 10:35:41.041</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-print"></i> Imprimir</a>
+                                </td>
+                            </tr>
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            
+            <div id="relatorio-geral-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Nome</th>
+                                <th style="width: 10%;">Tempo</th>
+                                <th style="width: 20%;">Evento</th>
+                                <th style="width: 18%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>buzina</td>
+                                <td>0</td>
+                                <td>Tocar Buzina</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>fechar orador</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Termino_Orador_10_segundos</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="usuario-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Login</th>
+                                <th style="width: 10%;">Nome</th>
+                                <th style="width: 10%;">Categoria</th>
+                                <th style="width: 10%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ceci</td>
+                                <td>Ceci Protetora</td>
+                                <td>Parlamentar</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Aldair</td>
+                                <td>Aldair Fagundes</td>
+                                <td>Parlamentar</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Claudio</td>
+                                <td>Claudio Rodrigues</td>
+                                <td>Parlamentar</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="perfil-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 6%;">Nome</th>
+                                <th style="width: 13%;">Observações</th>
+                                <th style="width: 10%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Administrador</td>
+                                <td>Administrador geral com acesso total</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Operacional</td>
+                                <td>Abrir reuniões e cadastrar dados nas reuniões</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Parlamentar</td>
+                                <td>Parlamentar</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+            <div id="cores-do-painel-content" class="subitem-content" style="display: none;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome" id="search-input">
+                    <button class="button-common search-button"><i class="fas fa-search"></i></button>
+                    <button class="button-common new-button"><i class="fas fa-user-plus"></i> Novo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Nome</th>
+                                <th style="width: 10%;">Tempo</th>
+                                <th style="width: 20%;">Evento</th>
+                                <th style="width: 18%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>buzina</td>
+                                <td>0</td>
+                                <td>Tocar Buzina</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>fechar orador</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Termino_Orador_10_segundos</td>
+                                <td>0</td>
+                                <td>Abrir Orador</td>
+                                <td>
+                                    <a href="#" class="action-link"><i class="fas fa-edit"></i> Editar</a> |
+                                    <a href="#" class="action-link"><i class="fas fa-trash-alt"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            <!-- Outras linhas ... -->
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+
+
+
+</body>
+</html>

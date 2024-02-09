@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <title>Home - Câmara Municipal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dddddd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            background-color: #ffffff;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #126d9e; /* Adiciona uma borda inferior azul */
+        }
+        .logo {
+            height: 50px; /* Altura do logo */
+        }
+
+        .menu-container {
+            position: relative;
+            margin-right: -290px;
+        }
+        
+        .menu-toggle {
+            cursor: pointer;
+        }
+        
+        .menu {
+            display: none; /* Inicia escondido */
+            position: absolute;
+            top: 100%; /* Posiciona abaixo do botão */
+            left: 0;
+            background-color: #ffffff; /* Fundo branco */
+            border: 1px solid #003366; /* Borda azul */
+            z-index: 1; /* Certifique-se de que aparece acima do conteúdo abaixo */
+        }
+        
+        .menu a {
+            color: #003366; /* Texto azul */
+            text-decoration: none;
+            display: block;
+            padding: 10px; /* Espaçamento interno para tornar os links mais clicáveis */
+        }
+        
+        .menu a:hover {
+            background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+        }
+
+        .content {
+            display: flex; /* Alinha os ícones horizontalmente */
+            justify-content: space-around; /* Espaçamento horizontal entre os ícones */
+            align-items: center; /* Centraliza verticalmente os ícones */
+            flex-wrap: wrap; /* Permite que os ícones se enrolem em tamanhos menores de tela */
+            min-height: calc(100vh - 40px); /* Define a altura mínima para ocupar toda a altura da tela, menos o cabeçalho */
+            height: 250px; /* Altura específica */
+
+        }
+
+        .menu-item {
+            border-bottom: 1px solid #126d9e; /* Linha em #126d9e entre os tópicos principais */
+        }
+        
+        .icon {
+            width: 220px; /* Ajuste o tamanho conforme necessário */
+            height: 250px; /* ou qualquer altura desejada */
+            display: flex; /* Habilita o layout flex */
+            flex-direction: column; /* Organiza o conteúdo em uma coluna */
+            justify-content: center; /* Alinha o conteúdo verticalmente ao centro */
+            align-items: center; /* Alinha o conteúdo horizontalmente ao centro */
+            
+            background-color: #ffffff; /* Fundo branco para o cartão */
+            border: 1px solid #ccc; /* Borda ao redor do cartão */
+            padding: 20px; /* Espaçamento interno do cartão */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra opcional para efeito 3D */
+            text-align: center; /* Centraliza o texto e a imagem */
+            margin: 10px; /* Espaçamento externo do cartão */
+            border-radius: 10px; /* Pontas arredondadas */
+            cursor: pointer; /* Muda o cursor para um ponteiro ao passar o mouse */
+            transition: background-color 0.3s; /* Transição suave para mudança de cor de fundo */
+        }
+        
+        .icon:hover {
+            background-color: #dfdfdf; /* Cor de fundo ao passar o mouse */
+        }
+        
+        .icon img {
+            max-width: 100%;
+        }
+        
+        .icon p {
+            margin: 10px 0 0;
+        }
+        
+        .icon:hover {
+            background-color: #dfdfdf; /* Novo */
+        }
+        .menu-container {
+            position: relative; /* Posiciona o contêiner */
+        }
+
+        .custom-select {
+            position: absolute; /* Posicionamento absoluto para aparecer abaixo do botão */
+            top: 100%; /* Posiciona logo abaixo do botão */
+            left: 0;
+            background-color: #003366; /* Cor de fundo */
+            width: 200px; /* Largura do menu */
+            border-radius: 5px; /* Borda arredondada */
+            z-index: 1; /* Posicionamento na frente de outros elementos */
+            
+        }
+        
+        .custom-select .option {
+            padding: 5px 10px; /* Espaçamento interno */
+            color: white; /* Cor da fonte */
+            cursor: pointer; /* Estilo do cursor */
+        }
+        
+        .custom-select .option:hover {
+            background-color: #126d9e; /* Cor de fundo ao passar o mouse */
+        }
+        
+        .custom-select .option a {
+            color: white; /* Cor dos links */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+        
+        .custom-select .option i {
+            margin-left: 10px; /* Espaçamento à esquerda dos ícones */
+        }
+        
+        .selected-option {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .boas-vindas {
+            color: #126d9e; /* Define a cor do texto */
+            font-family: "Georgia", serif; /* Escolhe uma fonte mais sofisticada */
+            font-size: 20px; /* Ajusta o tamanho da fonte */
+            text-align: center; /* Centraliza o texto na div */
+        }
+        
+
+        
+        .option {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+        .navigate {
+            cursor: pointer;
+            float: right;
+            font-size: 20px; /* Ajuste o tamanho conforme necessário */
+            background-color: #ffffff; /* Fundo branco */
+            border: none; /* Remove a borda */
+            color: #126d9e; /* Cor do ícone */
+            transition: background-color 0.3s, color 0.3s; /* Transição suave de cor */
+            border-radius: 8px; /* Arredonda as bordas */
+            margin-right: -90px;
+            
+        }
+        
+        .navigate:hover {
+            background-color: #dddddd; /* Cor de fundo ao passar o mouse */
+            color: #126d9e; /* Cor do ícone ao passar o mouse */
+        }
+
+        .log-off-out {
+            cursor: pointer;
+            font-size: 18px; /* Ajuste o tamanho conforme necessário */
+            float: right; /* Alinha à direita */
+            color: #6c757d; /* Cor do texto secundário - pode ser ajustado */
+            margin-left: 0px; /* Espaçamento à esquerda do botão de saída */
+            margin-right: 35px;
+            background: none; /* Sem cor de fundo */
+            border: none; /* Sem borda */
+            
+            
+        }
+        
+        .log-off-out:hover {
+            color: #5a6268; /* Cor do texto ao passar o mouse - pode ser ajustado */
+        }
+        
+
+    </style>
+
+</head>
+<body>
+    <div class="header">
+    <img src="{% static 'images/Group 1.svg' %}" alt="Logo" class="logo">
+
+        
+        <div class="boas-vindas">
+            {{ mensagem_boas_vindas }}
+        </div>
+        <div class="menu-container">
+            <button class="navigate" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-caret-down arrow-icon"></i>
+            </button>
+
+    
+            <div class="custom-select" style="display:none;" >
+                <div class="options">
+                    <div class="option">
+                        <a href="{% url 'configuracao' %}">Configuração</a>
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#parlamentar">Parlamentar</a>
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#operador">Operador</a>
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#alterar-senha">Alterar Senha</a>
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="option">
+                        <a href="#sair">Sair</a>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <a href="{% url 'logout' %}">
+            <button class="log-off-out text-secondary">
+                <span class="has-mobile">Sair</span>
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </a>
+
+
+    </div>
+    <div class="content">
+        <div class="icon">
+            <img src="{% static 'images/ico_reuniaoplenario.png' %}" alt="Reunião de Plenário">
+            <p>Reunião de Plenário</p>
+        </div>
+        <div class="icon">
+            <img src="{% static 'images/ico_reuniaocomissao.png' %}"alt="Reunião de Comissões">
+            <p>Reunião de Comissões</p>
+        </div>
+        <div class="icon" id="legislacaoIcon">
+            <img src="{% static 'images/ico_legislacao.png' %}" alt="Legislação">
+                <p>Legislação</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            $(".custom-select").toggle(); // Simplesmente alternar a exibição do menu
+        }
+        
+        $(document).ready(function() {
+            $(".option").click(function() {
+                var selected = $(this).html();
+                $(this).closest(".custom-select").find(".selected-option").html(selected);
+                $(this).closest(".options").hide();
+            });
+        });
+
+        document.getElementById('legislacaoIcon').addEventListener('click', function() {
+        window.location.href = "{% url 'links_constituicao' %}";});
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Câmara Municipal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #126d9e;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid white; /* Linha branca entre os tópicos principais */
+        }
+        
+        .input-container .fa-lock {
+            right: 10px; /* Ajuste conforme necessário */
+        }
+        
+        .input-container .fa-eye {
+            right: 30px; /* Ajuste conforme necessário */
+            cursor: pointer;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .input-container i {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            color: #ccc; /* Cor cinza */
+        }
+        
+        .input-container input {
+            width: 100%;
+            padding: 10px;
+            padding-right: 10px; /* Espaço para o ícone */
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            outline: none;
+            border-radius: 5px; /* Borda arredondada para a entrada */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            flex-direction: column;
+        }
+
+        .login-form {
+            background-color: #fff;
+            padding: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            height: 190px;
+            border-radius: 15px; /* Borda arredondada para o card */
+        }
+        
+        .login-form input {
+            width: 93%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            outline: none;
+            border-radius: 8px; /* Borda arredondada para o campo de entrada */
+        }
+
+        .login-form button {
+            padding: 12px;
+            width: 102%;
+            background-color: #126d9e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px auto 30px
+            
+        }
+
+        .login-form input:focus {
+            border-color: #126d9e;
+        }
+
+        .municipal-text {
+            color: #003366;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logo {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 8px auto 20px; /* Ajuste a margem superior conforme necessário */
+        }
+        .error-container {
+            position: relative; /* Isso permitirá o posicionamento absoluto do erro */
+            height: 0; /* Sem altura para evitar o deslocamento do conteúdo */
+        }
+        
+        .error {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 10px; /* Reduza o padding para diminuir a altura */
+            border-radius: 0px;
+            text-align: center;
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; /* Alinhar verticalmente o texto e o timer */
+            line-height: 1; /* Reduzir a altura da linha para o texto */
+        }
+        
+        .error-container {
+            position: relative;
+        }
+        
+        .error {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Para distribuir o espaço entre o texto e a barra de carregamento */
+        }
+        
+        .error p {
+            margin: 0;
+            padding-right: 0px; /* Ajuste conforme necessário */
+        }
+        
+        .error-timer {
+            position: absolute; /* Use posicionamento absoluto */
+            top: 15%; /* Centralize verticalmente */
+            right: 18px; /* Posicione à direita */
+            transform: translateY(-100%); /* Alinhe com o centro vertical */
+            width: 20px;
+            height: 20px;
+            border-radius: 150%;
+            border: 5px solid transparent;
+            border-top: 5px solid white;
+            animation: spin 5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); translateY(-50%); } /* Mantenha o alinhamento vertical */
+            100% { transform: rotate(360deg); translateY(-50%); } /* Mantenha o alinhamento vertical */
+        }
+        
+        .error-timer:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #ff4d4d;
+            border-left-color: transparent;
+            animation: spin 5s linear infinite;
+            transform: translateY(-100px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Login Page
+    </div>
+    <div class="error-container">
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+                <div class="error-timer"></div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="container">
+        <img src="{% static 'images/Image (2).png' %}" alt="Logo da Câmara Municipal" class="logo">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="login-form">
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Nome de Usuário" required>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="Senha" required>
+                    <i class="fas fa-eye" id="togglePassword"></i>
+                </div>
+                <button type="submit">Entrar</button>
+            </div>
+        </form>
+        <div class="municipal-text">
+            Câmara Municipal de Montes Claros
+        </div>
+    </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            var passwordInput = document.getElementById('password');
+            var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash'); // alternar para ícone de "olho fechado" se quiser
+        });
+
+        {% if error %}
+        function showError() {
+            const errorElement = document.querySelector('.error');
+            const timerElement = document.querySelector('.error-timer');
+            errorElement.style.display = 'block';
+            timerElement.style.display = 'block';
+
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+                timerElement.style.display = 'none';
+            }, 5000);
+        }
+
+        showError();
+    {% endif %}
+        
+    </script>
+</body>
+</html>

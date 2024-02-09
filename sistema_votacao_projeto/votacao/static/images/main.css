@@ -1,0 +1,995 @@
+.top-header {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+.logo {
+    height: 50px; /* Altura do logo */
+}
+
+.header {
+    background-color: #126D9E;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.menu-item{
+    border-bottom: 1px solid #126D9E; /* Ajuste a cor conforme necessário */
+  }
+
+
+.icon-back, .icon-menu {
+    /* estilização dos ícones */
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.menu {
+    background-color: #003366; /* mesma cor que o cabeçalho */
+    width: 0; /* inicia fechado */
+    
+    transition: width 0.5s;
+    position: absolute; /* ou "fixed" se você quiser que fique sempre visível enquanto rola a página */
+    top: 0; /* alinha com o topo da página */
+    left: 0; /* alinha com o lado esquerdo da página */
+    height: 100%; /* ocupa toda a altura da página */
+}
+
+.menu.active {
+    width: 200px; /* largura quando o menu está aberto */
+ 
+}
+
+
+.menu-header {
+    display: flex; /* Alinha horizontalmente */
+    justify-content: space-between; /* Espaça os elementos igualmente */
+    align-items: center; /* Alinha verticalmente */
+    cursor: pointer;
+    padding: 10px; /* Espaçamento interno */
+    color: #ffffff; /* Cor do texto */
+    font-weight: bold; /* Fonte em negrito */
+    font-size: 16px; /* Tamanho da fonte do tópico */
+    font-family: 'Arial', sans-serif; /* Exemplo de fonte apresentável, ajuste conforme a preferência */
+  
+}
+
+.submenu .menu-item a {
+    font-size: 12px; /* Tamanho da fonte do subitem, menor que o tópico */
+    font-weight: bold; /* Fonte em negrito */
+    font-family: 'Arial', sans-serif; /* Exemplo de fonte apresentável, ajuste conforme a preferência */
+    color: #ffffff; /* Cor do texto do subitem */
+}
+
+.menu-header p {
+    margin: 0;
+}
+
+.menu-header.active {
+    background-color: #003366;
+
+}
+
+.submenu {
+    display: none;
+    
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu a {
+    display: block; /* Exibe os links verticalmente */
+    padding: 5px 10px; /* Espaçamento interno */
+    color: #ffffff; /* Cor do texto */
+    text-decoration: none; /* Remove o sublinhado */
+ 
+}
+
+.icon-expand {
+    cursor: pointer;
+    width: 25px; /* Largura fixa para manter a posição */
+    text-align: center; /* Centraliza o símbolo dentro da área */
+}
+
+.icon-back, .icon-menu {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.icon-back::before {
+    content: '\2190';
+    font-size: 25px;
+    color: #ffffff;
+}
+
+.icon-menu::before {
+    content: '\2630';
+    font-size: 25px;
+}
+
+
+.option {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+.navigate {
+    cursor: pointer;
+    float: right;
+    font-size: 20px; /* Ajuste o tamanho conforme necessário */
+    background-color: #ffffff; /* Fundo branco */
+    border: none; /* Remove a borda */
+    color: #126d9e; /* Cor do ícone */
+    transition: background-color 0.3s, color 0.3s; /* Transição suave de cor */
+    border-radius: 8px; /* Arredonda as bordas */
+    margin-right: -90px;
+    
+}
+
+.navigate:hover {
+    background-color: #dddddd; /* Cor de fundo ao passar o mouse */
+    color: #126d9e; /* Cor do ícone ao passar o mouse */
+}
+
+.log-off-out {
+    cursor: pointer;
+    font-size: 18px; /* Ajuste o tamanho conforme necessário */
+    float: right; /* Alinha à direita */
+    color: #6c757d; /* Cor do texto secundário - pode ser ajustado */
+    margin-left: 0px; /* Espaçamento à esquerda do botão de saída */
+    margin-right: 35px;
+    background: none; /* Sem cor de fundo */
+    border: none; /* Sem borda */
+    
+    
+}
+
+.log-off-out:hover {
+    color: #5a6268; /* Cor do texto ao passar o mouse - pode ser ajustado */
+}
+
+
+
+.custom-select {
+    position: absolute; /* Posicionamento absoluto para aparecer abaixo do botão */
+    top: 100%; /* Posiciona logo abaixo do botão */
+    left: 0;
+    background-color: #003366; /* Cor de fundo */
+    width: 200px; /* Largura do menu */
+    border-radius: 5px; /* Borda arredondada */
+    z-index: 1; /* Posicionamento na frente de outros elementos */
+    
+}
+
+.custom-select .option {
+    padding: 5px 10px; /* Espaçamento interno */
+    color: white; /* Cor da fonte */
+    cursor: pointer; /* Estilo do cursor */
+}
+
+.custom-select .option:hover {
+    background-color: #126d9e; /* Cor de fundo ao passar o mouse */
+}
+
+.custom-select .option a {
+    color: white; /* Cor dos links */
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+.custom-select .option i {
+    margin-left: 10px; /* Espaçamento à esquerda dos ícones */
+}
+
+.menu-container {
+    position: relative;
+    margin-right: -870px;
+}
+
+.selected-option {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.back-button i {
+    color: #ffffff; /* Cor branca */
+    font-size: 24px; /* Tamanho maior */
+    font-weight: bold; /* Torna o ícone mais grosso */
+    margin-left: 10px; /* Ajuste de posicionamento (exemplo) */
+    margin-top: 5px; /* Ajuste de posicionamento (exemplo) */
+}
+
+/*CONTENT*/
+/* Certifique-se de que o container pai do menu e do conteúdo está definido como display flex */
+.container {
+    display: flex;
+    background-color: #f5f5f5;
+    flex-direction: row; /* alinhar subitens horizontalmente */
+    height: 100vh; /* opcional, se você quer que o contêiner ocupe toda a altura da janela */
+}
+
+
+.side-menu {
+    width: 225px;
+    height: 100vh; /* Definindo a altura para ocupar toda a tela */
+    background-color: #137DC5;
+    float: left;
+}
+
+
+.table-container {
+    position: absolute;
+    float: left;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: calc(60% - 225px); /* Ajuste aqui para diminuir o espaço à direita da tabela */
+    margin: 50px 0;
+    border: 1px solid #484848;
+    margin-left: 90px;
+    border-radius: 5px;
+}
+#parlamentar-table {
+    max-height: 420px; /* Defina a altura máxima da tabela que deseja */
+    overflow-y: auto; /* Adicione uma barra de rolagem vertical quando o conteúdo exceder a altura máxima */
+}
+
+#parlamentar-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* Defina a cor de fundo desejada */
+}
+
+
+#parlamentar-table th {
+    background-color: #333333; /* Defina a cor de fundo do cabeçalho */
+    position: sticky;
+    top: 0;
+}
+/* Estilos da barra de rolagem */
+.table-container::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+    background-color: #808080; /* Cor de fundo da trilha da barra */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #484848; /* Cor do polegar (a parte móvel) da barra de rolagem */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background-color: #2c2c2c; /* Cor do polegar ao passar o mouse */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+}
+
+th {
+    background-color: #404040; /* Cor do cabeçalho da coluna */
+    color: #fff; /* Cor da fonte branca */
+    text-align: left; /* ou 'center' ou 'right', conforme necessário */
+    height: 40px; /* Definindo a altura do cabeçalho */
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: left; /* ou 'center' ou 'right', conforme necessário */
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:hover {
+    background-color: #E4F7DF;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto; /* Adicionando margem superior e inferior */
+    width: 150%; /* Ajustando a largura */
+    
+}
+
+/* Estilo comum para botões */
+.button-common {
+    position: absolute;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 11px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius:6px
+}
+
+.new-button {
+    margin-right: 150px;
+    margin-left: 550px;
+}
+
+.search-button {
+    margin-right: 10px;
+    margin-left: 400px;
+    margin-top: -1px
+}
+
+#search-input-parlamentar {
+    position: absolute;
+    padding: 7px;
+    font-size: 16px;
+    width: 23%;
+    border-radius: 5px; /* Bordas arredondadas */
+    margin-left: 100px;
+}
+
+#search-input-mesa {
+    position: absolute;
+    padding: 7px;
+    font-size: 16px;
+    width: 23%;
+    border-radius: 5px; /* Bordas arredondadas */
+    margin-left: 100px;
+}
+
+#search-input-partido {
+    position: absolute;
+    padding: 7px;
+    font-size: 16px;
+    width: 23%;
+    border-radius: 5px; /* Bordas arredondadas */
+    margin-left: 100px;
+}
+
+/* Ícones do Font Awesome no botão */
+.fas {
+    margin-right: 5px;
+}
+
+#parlamentar-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+   
+}
+
+#partido-politico-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+   
+}
+
+#mesa-diretora-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#parametros-de-votacao-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#tipo-de-acao-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#sessao-plenario-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#votacao-plenario-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#painel-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#cenario-painel-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#buzina-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#relatorio-de-presenca-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+#relatorio-de-votacao-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#relatorio-geral-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#perfil-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#usuario-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+#cores-do-painel-content {
+    display: none;
+    padding-left: 50px; /* Adicionando um espaço à esquerda para evitar colar ao menu lateral */
+}
+
+
+.action-link {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5f5f5;  /* Cinza bem claro */
+    color: #666666;             /* Um tom de cinza mais escuro para o texto */
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.action-link:hover {
+    background-color: #e0e0e0;  /* Um tom de cinza um pouco mais escuro para o hover */
+}
+
+
+.action-link i {
+    margin-right: 5px;
+}
+
+.subitem-content {
+    display: none; /* Por padrão, o conteúdo estará oculto */
+}
+
+/* BOTÃO DE ATIVAR E DESATIVAR DO RELATORIO DE PRESENCA*/
+
+.switch-wrapper-votacao {
+    align-items: center; /* Centraliza verticalmente */
+    position: relative; /* Vamos usar isso para posicionar o switch */
+    width: 120px; /* Ajuste conforme necessário */
+    height: 30px; /* Ajuste conforme necessário */
+    margin-bottom: 20px; /* Espaço entre os switches */
+    margin-left: 600px;
+    margin-top: -35px; 
+}
+
+.switch-wrapper-votacao p {
+    white-space: nowrap;  /* Isso evita que o texto seja quebrado em duas linhas */
+    margin-bottom: 0px; /* Espaço entre a legenda e o switch */
+    margin-left: -26px;
+}
+
+.switch-wrapper {
+    position: relative; /* Vamos usar isso para posicionar o switch */
+    width: 120px; /* Ajuste conforme necessário */
+    height: 30px; /* Ajuste conforme necessário */
+    margin-bottom: 20px; /* Espaço entre os switches */
+    margin-left: 115px;
+    margin-top: -10px; 
+}
+
+.switch-wrapper p {
+    
+    white-space: nowrap;  /* Isso evita que o texto seja quebrado em duas linhas */
+    margin-bottom: 0px; /* Espaço entre a legenda e o switch */
+    margin-left: -30px;
+}
+
+.fa-switch-label i {
+    font-size: 50px; /* Aumenta o tamanho do ícone */
+    transition: all 0.3s; /* Suaviza a transição ao alternar */
+}
+
+.fa-switch-input:checked + .fa-switch-label .fa-toggle-off {
+    display: none;
+}
+
+.fa-switch-input:not(:checked) + .fa-switch-label .fa-toggle-on {
+    display: none;
+}
+
+.fa-switch-input {
+    display: none;
+}
+
+.fa-switch-label {
+    cursor: pointer;
+}
+
+.fa-toggle-on {
+    display: none;
+    color: #007bff;
+}
+
+/* FIM DO BOTÃO DE ATIVAR E DESATIVAR DO RELATORIO DE PRESENCA*/
+
+
+/*INICIO BOTÃO "NOVO" PARLAMENTAR*/
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+    background-color: #f4f7f8;
+}
+
+/* Estilos do formulário */
+
+form {
+    max-width: 680px;
+    margin:-0% auto 0px; /* Ajuste a margem superior para subir o formulário */
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+/* Alinhando o formulário e a caixa da foto lado a lado */
+
+.info-section {
+    display: flex;
+    justify-content: space-between; /* Alinha as divs filhas nos extremos opostos */
+    align-items: center; /* Centraliza os filhos verticalmente */
+}
+
+/* Estilizando a seção de detalhes do formulário */
+
+.details-section {
+    width: 60%; /* Ocupa 60% do espaço, enquanto a caixa da foto ocupa 40% */
+}
+
+/* Estilizando a caixa da foto */
+.photo-section {
+    position: relative;
+    width: 155px; /* aumentando o tamanho da caixa */
+    height: 125px; /* aumentando o tamanho da caixa */
+    border: 2px solid #e8eeef; /* Reduz a espessura da borda */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    margin-top: -205px; /* subindo um pouco em altura */
+    cursor: pointer;
+    border-radius: 6%; /* Isso tornará a borda completamente arredondada */
+    margin-left: 25px;
+    transition: border-color 0.2s; /* Transição suave ao focar ou passar o mouse */
+}
+
+.photo-section:hover {
+    border-color: #007BFF; /* Mudança de cor ao passar o mouse */
+}
+
+.photo-section img {
+    width: 100%;   /* Faz a imagem preencher a largura da caixa */
+    height: 100%;  /* Faz a imagem preencher a altura da caixa */
+    object-fit: cover;  /* Corta a imagem para preencher a caixa sem distorção */
+    border-radius: 6%;  /* A imagem também é arredondada */
+    position: absolute; /* Faz a imagem se posicionar relativa à caixa da foto */
+    top: 0;
+    left: 0;
+}
+
+.photo-section .fa-camera {
+    font-size: 24px;
+    z-index: 2;
+    transition: color 0.2s; /* Transição suave de cor */
+    opacity: 1;  /* Por padrão, o ícone da câmera é totalmente opaco */
+}
+
+.photo-section:hover .fa-camera {
+    color: #007BFF; /* Mudança de cor do ícone ao passar o mouse */
+}
+
+/* Estilos gerais dos campos de input */
+
+/* Estilos gerais dos campos de input */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent; /* Adicionado para preparar para o foco */
+    border-radius: 4px; /* Arredondar os cantos um pouco */
+    font-size: 16px;
+    height: auto;
+    margin: 0;
+    outline: none; /* Removido o destaque padrão do navegador */
+    padding: 8px 12px; /* Adicionado um pouco mais de padding horizontal */
+    width: 100%;
+    background-color: #e8eeef;
+    color: #333; /* Uma cor mais escura para uma melhor legibilidade */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) inset; /* Sombra um pouco mais pronunciada */
+    margin-bottom: 30px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+}
+
+/* Efeito ao focar o campo */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="datetime"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #126d9e; /* Uma cor azul para indicar o foco */
+    box-shadow: 0 1px 3px rgba(18, 109, 158, 0.3) inset; /* Uma sombra azulada para indicar o foco */
+}
+
+/* Estilo para o texto de placeholder */
+::placeholder {
+    color: #8a97a0;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+    color: #8a97a0;
+}
+
+::-ms-input-placeholder {
+    color: #8a97a0;
+}
+
+/* Estilo para erro (opcional) */
+input.error,
+textarea.error,
+select.error {
+    border-color: #e74c3c; /* Uma cor vermelha para indicar o erro */
+    box-shadow: 0 1px 3px rgba(231, 76, 60, 0.3) inset; /* Uma sombra avermelhada para indicar o erro */
+}
+
+select {
+    padding: 4px;
+    height: 30px;
+    border-radius: 2px;
+}
+
+fieldset {
+    margin-bottom: 20px;
+    border: none;
+}
+
+legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+label.light {
+    font-weight: 300;
+    display: inline;
+}
+
+.number {
+    background-color: #3446cf;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+}
+.info-section {
+    display: flex;
+    justify-content: space-between; /* Isso faz com que os filhos diretos da div sejam alinhados nos extremos opostos */
+    align-items: center; /* Isso centraliza os filhos verticalmente */
+}
+
+/* Estilizando os botões no fim do formulário */
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3446cf;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-buttons button:hover {
+    background-color: #2533a7;
+}
+
+.col-md-12 {
+    position: relative;
+    margin-top: 15px;  /* Ajusta a margem superior para descer o card */
+    margin-left: 220px;
+    max-height: 90vh; /* Definindo o máximo de altura para 90% da altura da viewport */
+
+}
+
+/* Estilo do Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.close-button {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover, .close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsividade: ajustes para telas maiores que 480px */
+
+@media screen and (min-width: 480px) {
+    form {
+        max-width: 750px; /* Aumentando um pouco mais a largura máxima */
+    }
+}
+
+/* modal de confirmação de saída*/
+
+.parlamentar-confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1001; /* Aumentando para garantir que esteja acima de outros modais, ajuste conforme necessário */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo do modal verticalmente e horizontalmente */
+}
+
+.parlamentar-modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px; /* Adiciona bordas arredondadas */
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.4); /* Adiciona sombra ao modal */
+    transition: transform 0.2s; /* Efeito de transição suave */
+    transform: scale(0.95); /* Efeito de "aparecer" ao abrir o modal */
+}
+
+.parlamentar-modal-content:hover {
+    transform: scale(1); /* Efeito de zoom ao passar o mouse */
+}
+
+.parlamentar-modal-header, 
+.parlamentar-modal-body, 
+.parlamentar-modal-footer {
+    padding: 10px;
+}
+
+.parlamentar-confirm-button, 
+.parlamentar-cancel-button {
+    cursor: pointer;
+    padding: 5px 15px;
+    border: none;
+    background-color: #f5f5f5;
+    margin: 5px;
+    border-radius: 3px; /* Adiciona bordas arredondadas */
+    transition: background-color 0.3s, transform 0.3s; /* Efeito de transição suave para hover */
+}
+
+.parlamentar-confirm-button:hover, 
+.parlamentar-cancel-button:hover {
+    background-color: #ddd;
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
+
+
+
+/* NOVO PARTIDO */
+
+#partido-form {
+    width: 80%;
+    padding: 20;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;  /* Definindo o fundo como branco */
+    margin-top: -13px;  /* Ajusta a margem superior para descer o card */
+    margin-left: 140px;
+    max-height: 90vh; /* Definindo o máximo de altura para 90% da altura da viewport */
+}
+
+
+.field-group {
+    border: none; /* Remove o estilo padrão do fieldset */
+    margin: 0;
+    padding: 0;
+}
+
+.field-group legend {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    color: #126d9e; /* Cor azul que você usou anteriormente */
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details-section {
+    width: 100%; /* Ocupa todo o espaço disponível */
+}
+
+.label-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.label-input-container label {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.label-input-container input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.label-input-container input[type="text"]:focus, 
+.label-input-container input[type="date"]:focus {
+    border-color: #126d9e; /* Altera a cor da borda no foco para um azul */
+    box-shadow: 0 0 8px rgba(18, 109, 158, 0.3); /* Adiciona um leve glow azul */
+}
+
+.card-partido-politico {
+    margin-top: -13px;  /* Ajusta a margem superior para descer o card */
+    margin-left: 140px;
+    max-height: 90vh; /* Definindo o máximo de altura para 90% da altura da viewport */
+
+}
+
+/*NOVO MESA DIRETORA*/
+
+#mesa-form {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: -13px;  /* Ajusta a margem superior para descer o card */
+    margin-left: 140px;
+    max-height: 90vh; /* Definindo o máximo de altura para 90% da altura da viewport */
+}
+
+#mesa-form legend {
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#mesa-form .info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#mesa-form .details-section {
+    width: 100%;
+}
+
+#mesa-form .label-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+#mesa-form label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.card-mesa-diretora {
+    margin-top: -13px;  /* Ajusta a margem superior para descer o card */
+    margin-left: 140px;
+    max-height: 90vh; /* Definindo o máximo de altura para 90% da altura da viewport */
+
+}
